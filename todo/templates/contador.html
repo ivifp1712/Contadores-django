@@ -50,7 +50,7 @@
         </p>
         <p class="creado">Creado en <span id="fcreado">{{codigo.dia}}</span> por {{codigo.creador}}  </p>
         <br><br>
-        <p> ¿Se ha completado? Contraseña de desbloqueo: <form action="/s/{{codigo.codigo}}" method="post"> {% csrf_token %} <input type="password" name="contra"> <input type="submit" value="Enviar"> </form> </p>
+        <p> ¿Se ha completado? Contraseña de desbloqueo: <form action="/s/{{codigo.codigo}}" method="post" {% csrf_token %} > {% csrf_token %} <input type="password" name="contra"> <input type="submit" value="Enviar"> </form> </p>
         <p id="inco" display="none">{{falsa}}</p>
         <p id="compl" style="display: none; ">{{com}}</p>
     </div>
