@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador {{nombre}}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <style>
+        body{
+            margin: 2%;
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            grid-template-rows: 1fr; 
+            gap: 0px 0px;
+            justify-content: center; 
+            align-content: center; 
+            justify-items: center; 
+            align-items: center; 
+        }
+        
+        p{
+            margin: 5%;
+            margin-top: 4%;
+        }
+        span{
+            font-style: italic;
+        }
+        .creado{
+            
+            font-style: italic;
+        }
+        form{
+            text-align: center;
+            margin-bottom: 0% !important;
+        }
+        .pcolumna{
+            grid-column: 1;
+            grid-row: 1;
+        }
+        .scolumna{
+            grid-column: 2/2;
+            grid-row: 1;
+        }
+        @media only screen and (max-width: 600px){
+            body{
+                grid-template-columns: 1fr !important;
+            }
+            .pcolumna{
+                grid-row-start: 1;
+                grid-row-end: 1;
+            }
+            .scolumna{
+                grid-column: 1 !important;
+            grid-row-start: 2;
+            grid-row-end: 2;     
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scolumna">
+        <h1> Listas de contadores públicos</h1>
+        <ul>
+            {% for x in a %}
+            <li><a href="/s/{{x.codigo}}">{{x.title}} <span>by {{x.creador}}</span></a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="pcolumna">
+            <h1 style="text-align: center;">Crear contador</h1>
+            <form action="/" method="post" id="añadir"> {% csrf_token %}
+                <p> Nombre del contador: <input type="text" name="nombre" required></p>
+                <p> Fecha: <input type="date" id="date" name="fecha" required></p>
+                <p> Hora: <input type="time" value="04:20" name="hora" required></p>
+                <p> Nombre del creador: <input type="text" name="creador"></p>
+                <p> Contraseña para finalizar el contador: <input type="password" name="contra" required></p>
+                <p> ¿Privado? <input type="checkbox" name="private" value="Su"></p>
+
+                <p><input type="submit" value="Crear"></p>
+            </form>
+        <p><a id="link" href="">{{resul}}</a></p>
+    </div>
+    
+    <script>
+        document.getElementById('date').valueAsDate = new Date();
+        if (document.getElementById("link").innerHTML != "" ) {
+            document.getElementById("link").href = window.location.toString() + "s/{{codigo}}"
+        }
+    </script>
+
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador {{nombre}}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <style>
+        body{
+            margin: 2%;
+            display: grid; 
+            grid-template-columns: 1fr; 
+            grid-template-rows: 1fr; 
+            gap: 0px 0px; 
+            grid-template-areas: 
+                "."; 
+            justify-content: center; 
+            align-content: center; 
+            justify-items: center; 
+            align-items: center; 
+
+        }
+        p{
+            margin: 5%;
+            margin-top: 4%;
+        }
+        span{
+            font-size: 25px; font-weight: bold;
+        }
+        .creado{
+            
+            font-style: italic;
+        }
+        form{
+            text-align: center;
+        }
+        #fcreado{
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{codigo.title}}</h1>
+    <div id="cont">
+        <p id="date" style="display: none">{{date}}</p>
+        <p>
+            <span id="years">0</span> años <span id="meses">0</span> meses <span id="semanas">2</span> semanas <span id="dias">2</span> dias <span id="horas">22</span> horas <span id="minutos">27</span> minutos <span id="segundos">5</span> segundos 
+        </p>
+        <p class="creado">Creado en <span id="fcreado">{{codigo.dia}}</span> por {{codigo.creador}}  </p>
+        <br><br>
+        <p> ¿Se ha completado? Contraseña de desbloqueo: <form action="/s/{{codigo.codigo}}" method="post"> {% csrf_token %} <input type="password" name="contra"> <input type="submit" value="Enviar"> </form> </p>
+        <p id="inco" display="none">{{falsa}}</p>
+        <p id="compl" style="display: none; ">{{com}}</p>
+    </div>
+
+    <div id="final" style="display: none; margin: 5%;">
+        <h2> POR FIN LO HAS CONSEGUIDOOOOOO DIOOOOOOOOOOOOS</h2>
+        <h4> Suerte que solo has tardado: </h4>
+        <p>
+            <span id="years1">0</span> años <span id="meses1">0</span> meses <span id="semanas1">2</span> semanas <span id="dias1">2</span> dias <span id="horas1">22</span> horas <span id="minutos1">27</span> minutos <span id="segundos1">5</span> segundos 
+        </p>
+        <style id="nstilo">
+
+        </style>
+    </div>
+    
+    <p>©Ivan Gonzalez Gordo</p>
+    <script>
+    setInterval(()=>{
+        var date = new Date({{date}})
+        var d = Math.abs(date.getTime() - new Date().getTime()) / 1000;                 // delta
+            var r = {};                                                                // result
+            var s = {                                                                  // structure
+                year: 31536000,
+                month: 2592000,
+                week: 604800, // uncomment row to ignore
+                day: 86400,   // feel free to add your own row
+                hour: 3600,
+                minute: 60,
+                second: 1
+            };
+
+            Object.keys(s).forEach(function(key){
+                r[key] = Math.floor(d / s[key]);
+                d -= r[key] * s[key];
+
+            });
+            ///console.log("sad")
+            document.getElementById("years").innerHTML = r.year
+            document.getElementById("meses").innerHTML = r.month
+            document.getElementById("semanas").innerHTML = r.week
+            document.getElementById("dias").innerHTML = r.day
+            document.getElementById("horas").innerHTML = r.hour
+            document.getElementById("minutos").innerHTML = r.minute
+            document.getElementById("segundos").innerHTML = r.second
+    }, 1000)
+    
+    /*
+    if (document.getElementById("inco").innerHTML != ""){
+        document.getElementById("inco").innerHTML = "La contraseña es incorrecta. "
+    }
+    */  
+    console.log(document.getElementById("fcreado").innerHTML)
+    document.getElementById("fcreado").innerHTML = new Date(document.getElementById("fcreado").innerHTML / 1000).toString()
+
+    if (document.getElementById("compl").innerHTML != ""){
+        document.getElementById("cont").style.display = "none"
+        document.getElementById("final").style.display = "block"
+        var date = new Date({{date}})
+        var date2 = new Date({{com}})
+        var d = Math.abs( date.getTime() - date2.getTime()) / 1000;                 // delta
+            var r = {};                                                                // result
+            var s = {                                                                  // structure
+                year: 31536000,
+                month: 2592000,
+                week: 604800, // uncomment row to ignore
+                day: 86400,   // feel free to add your own row
+                hour: 3600,
+                minute: 60,
+                second: 1
+            };
+
+            Object.keys(s).forEach(function(key){
+                r[key] = Math.floor(d / s[key]);
+                d -= r[key] * s[key];
+
+            });
+            ///console.log("sad")
+            document.getElementById("years1").innerHTML = r.year
+            document.getElementById("meses1").innerHTML = r.month
+            document.getElementById("semanas1").innerHTML = r.week
+            document.getElementById("dias1").innerHTML = r.day
+            document.getElementById("horas1").innerHTML = r.hour
+            document.getElementById("minutos1").innerHTML = r.minute
+            document.getElementById("segundos1").innerHTML = r.second
+
+            document.getElementById("nstilo").innerHTML = `
+                                .balloon {
+                        --balloonDimension: 15vmax; /* 15% of min(viewport width, height) */
+                        width: var(--balloonDimension);
+                        height: var(--balloonDimension);
+                        border-radius: 100% 100% 15% 100%;
+                        margin: 0 0 0 25px;
+                        transform: rotateZ(45deg);
+                        position: fixed;
+                        bottom: calc(-1 * var(--balloonDimension));
+                        left: 0;
+                        background-color: aqua;
+                    }
+                    .balloon::before {
+                        content: "";
+                        width: 10%;
+                        height: 25%;
+                        background: radial-gradient(circle, rgba(255,255,255,.7) 0%, rgba(255,255,255,.1) 100%);
+                        position: absolute;
+                        left: 15%;
+                        top: 45%;
+                        border-radius: 100%;
+                    }
+                    .balloon::after {
+                        content: "";
+                        width: 13%;
+                        height: 5%;
+                        background-color: inherit;
+                        position: absolute;
+                        left: 90%;
+                        top: 94%;
+                        border-radius: 22%;
+                        transform: rotateZ(-45deg);
+                    }
+                    .balloon .string {
+                        position: absolute;
+                        background-color: #990;
+                        width: 2px;
+                        height: calc(var(--balloonDimension) * .6);
+                        transform-origin: top center;
+                        transform: rotateZ(-45deg);
+                        top: calc(var(--balloonDimension) - 6px);
+                        left: calc(var(--balloonDimension) - 8px);
+                    }
+                    .yellow{
+                        background-color: rgba(150, 150, 0, .45);
+                    }
+                    .green{
+                        background-color: rgba(0, 150, 0, .45);
+                    }
+                    .blue{
+                        background-color: rgba(0, 0, 150, .45);
+                    }
+                    .red{
+                        background-color: rgba(150, 0, 0, .45);
+                    }
+            `
+            const bdayBallons = (function(){
+    const density = 7; // concurrent balloon count
+    const balloons = []; 
+    const colors = ['yellow', 'green', 'blue', 'red'];
+
+    const stringElement = document.createElement("div");
+    stringElement.classList.add("string");
+
+    for (let i = 0; i < density; i++) {
+        const element = document.createElement("div");
+        element.classList.add("balloon");
+        element.classList.add(randomColor());
+
+        element.append(stringElement.cloneNode());
+        document.body.append(element);
+        
+        setTimeout(() => {
+            releaseBalloon(element);
+        }, (i * 2000) + random(500, 1000));
+    }
+
+
+    function randomColor() {
+        return colors[ random(0, colors.length) ];
+    }
+
+    function random (min, max){
+        return Math.floor(Math.random() * (max-min)) + min;
+    }
+
+    function releaseBalloon(balloon) {
+        const delay = random(100, 1000);
+        const x = random(-99, -30); // random x value to fly
+        const y = random(-99, -30); // random y value to fly
+
+        const sequence = [{
+            offset: 0,
+            transform: `rotateZ(45deg) translate(0, 0)`
+        }];
+
+
+        // random fly direction
+        if(random(0,2) === 0) {
+            // first fly up to top left
+
+            // left distance to keep balloon in view
+            balloon.style.left = `${-1*x}vw`;
+
+            sequence.push({
+                offset: x/-200,
+                transform: `rotateZ(45deg) translate(${x}vw, 0)`
+            });
+            sequence.push({
+                offset: (x+y)/-200,
+                transform: `rotateZ(45deg) translate(${x}vw, ${y}vh)`
+            });
+            sequence.push({
+                offset: (-100+y)/-200,
+                transform: `rotateZ(45deg) translate(-100vw, ${y}vh)`
+            });
+        } else {
+            // fist fly up to right top
+
+            sequence.push({
+                offset: y/-200,
+                transform: `rotateZ(45deg) translate(0, ${y}vh)`
+            });
+            sequence.push({
+                offset: (x+y)/-200,
+                transform: `rotateZ(45deg) translate(${x}vw, ${y}vh)`
+            });
+            sequence.push({
+                offset: (-100+x)/-200,
+                transform: `rotateZ(45deg) translate(${x}vw, -100vh)`
+            });
+        }
+
+        // last move is common
+        sequence.push({
+            offset: 1,
+            transform: `rotateZ(45deg) translate(-100vw, -100vh)`
+        });
+
+        const balloonAnimation = balloon.animate(sequence, {
+            duration: 15000,
+            delay: delay
+        });
+
+
+        balloonAnimation.onfinish = () => { releaseBalloon(balloon) }
+    }
+})();
+    
+    }
+
+
+    </script>
+</body>
+</html>
