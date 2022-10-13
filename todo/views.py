@@ -1,6 +1,5 @@
 from argparse import ArgumentDefaultsHelpFormatter
 from re import L
-from turtle import title
 from django.shortcuts import render
 from django.views.defaults import page_not_found
 from todo.models import Todo

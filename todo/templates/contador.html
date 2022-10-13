@@ -50,7 +50,7 @@
         </p>
         <p class="creado">Creado en <span id="fcreado">{{codigo.dia}}</span> por {{codigo.creador}}  </p>
         <br><br>
-        <p> ¿Se ha completado? Contraseña de desbloqueo: <form action="/s/{{codigo.codigo}}" method="post"> {% csrf_token %} <input type="password" name="contra"> <input type="submit" value="Enviar"> </form> </p>
+        <p> ¿Se ha completado? Contraseña de desbloqueo: <form action="/s/{{codigo.codigo}}" method="post" > <input type="password" name="contra"> <input type="submit" value="Enviar"> </form> </p>
         <p id="inco" display="none">{{falsa}}</p>
         <p id="compl" style="display: none; ">{{com}}</p>
     </div>
@@ -69,7 +69,7 @@
     <p>©Ivan Gonzalez Gordo</p>
     <script>
     setInterval(()=>{
-        var date = new Date({{date}})
+        var date = new Date({{codigo.dia}})
         var d = Math.abs(date.getTime() - new Date().getTime()) / 1000;                 // delta
             var r = {};                                                                // result
             var s = {                                                                  // structure
@@ -102,8 +102,12 @@
         document.getElementById("inco").innerHTML = "La contraseña es incorrecta. "
     }
     */  
-    console.log(document.getElementById("fcreado").innerHTML)
-    document.getElementById("fcreado").innerHTML = new Date(document.getElementById("fcreado").innerHTML / 1000).toString()
+
+    //console.log(document.getElementById("fcreado").innerHTML)
+    let dat = new Date(document.getElementById("fcreado").innerHTML / 1)
+    //console.log(dat)
+    document.getElementById("fcreado").innerHTML = dat
+
 
     if (document.getElementById("compl").innerHTML != ""){
         document.getElementById("cont").style.display = "none"
