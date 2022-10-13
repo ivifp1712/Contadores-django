@@ -69,7 +69,7 @@
     <p>©Ivan Gonzalez Gordo</p>
     <script>
     setInterval(()=>{
-        var date = new Date({{date}})
+        var date = new Date({{codigo.dia}})
         var d = Math.abs(date.getTime() - new Date().getTime()) / 1000;                 // delta
             var r = {};                                                                // result
             var s = {                                                                  // structure
@@ -102,12 +102,12 @@
         document.getElementById("inco").innerHTML = "La contraseña es incorrecta. "
     }
     */  
-   /*
-    console.log(document.getElementById("fcreado").innerHTML)
+
+    //console.log(document.getElementById("fcreado").innerHTML)
     let dat = new Date(document.getElementById("fcreado").innerHTML / 1)
-    console.log(dat)
+    //console.log(dat)
     document.getElementById("fcreado").innerHTML = dat
-    */
+
 
     if (document.getElementById("compl").innerHTML != ""){
         document.getElementById("cont").style.display = "none"
